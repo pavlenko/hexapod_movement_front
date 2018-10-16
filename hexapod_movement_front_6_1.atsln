@@ -1,0 +1,20 @@
+
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Atmel Studio Solution File, Format Version 11.00
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "hexapod_movement_front", "hexapod_movement_front_6_1.cproj", "{E58E3FFA-D339-411A-BD43-D9E7E4620695}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AVR = Debug|AVR
+		Release|AVR = Release|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E58E3FFA-D339-411A-BD43-D9E7E4620695}.Debug|AVR.ActiveCfg = Debug|AVR
+		{E58E3FFA-D339-411A-BD43-D9E7E4620695}.Debug|AVR.Build.0 = Debug|AVR
+		{E58E3FFA-D339-411A-BD43-D9E7E4620695}.Release|AVR.ActiveCfg = Release|AVR
+		{E58E3FFA-D339-411A-BD43-D9E7E4620695}.Release|AVR.Build.0 = Release|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
