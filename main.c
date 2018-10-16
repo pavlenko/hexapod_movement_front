@@ -97,59 +97,28 @@ volatile int16_t calibration_val[SM_MAX];
 
 int main(void)
 {
-	//char str[16];
-	
-	initialize_usart0();
-	initialize_led();
-	initialize_es();
-	initialize_leg();
-	initialize_hp();
-	initialize_timer0();
-	
-	sei();
-	
-    while(1)
-    {
-		es_dispatch();
-        LED_OFF();
-		//TODO:: Please write your application code
-		/*int8_t ch = usart0_getc();
-		if (ch == 'w') {
-			calibration_val[calibration_sm]++;
-			
-			servomotor_set_middle(calibration_sm, calibration_val[calibration_sm]);
-			servomotor_set_angle(calibration_sm, 90);
-			
-			sprintf(str,"+ i=%d m=%d\r\n", calibration_sm, calibration_val[calibration_sm]);
-			usart0_puts(str);
-		} else if (ch == 's') {
-			calibration_val[calibration_sm]--;
-			
-			servomotor_set_middle(calibration_sm, calibration_val[calibration_sm]);
-			servomotor_set_angle(calibration_sm, 90);
-			
-			sprintf(str,"- i=%d m=%d\r\n", calibration_sm, calibration_val[calibration_sm]);
-			usart0_puts(str);
-		} else if (ch == 'a') {
-			if (calibration_sm > 0) {
-				calibration_sm--;
-			}			
-			
-			servomotor_set_middle(calibration_sm, calibration_val[calibration_sm]);
-			servomotor_set_angle(calibration_sm, 90);
-			
-			sprintf(str,"< i=%d m=%d\r\n", calibration_sm, calibration_val[calibration_sm]);
-			usart0_puts(str);
-		} else if (ch == 'd') {
-			if (calibration_sm < 17) {
-				calibration_sm++;
-			}
-			
-			servomotor_set_middle(calibration_sm, calibration_val[calibration_sm]);
-			servomotor_set_angle(calibration_sm, 90);
-			
-			sprintf(str,"> i=%d m=%d\r\n", calibration_sm, calibration_val[calibration_sm]);
-			usart0_puts(str);
-		}*/			
+    // Set pin as input
+	DDRB &= ~(1 << PB1);
+
+	// Check if pin is high
+    if (PINB & (1 << PB1)) {
+        // Do nothing - disable all logic for allow simple program update
+        return(0);
+    } else {
+        // Execute main program
+        initialize_usart0();
+        initialize_led();
+        initialize_es();
+        initialize_leg();
+        initialize_hp();
+        initialize_timer0();
+
+        sei();
+
+        while(1)
+        {
+            es_dispatch();
+            LED_OFF();
+        }
     }
 }
