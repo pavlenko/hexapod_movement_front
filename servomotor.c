@@ -95,88 +95,89 @@ static inline void _servomotor_isr(sm_timer_t timer, volatile uint16_t *TCNTn, v
 void _servomotor_start_isr(sm_timer_t timer)
 {
 	//TODO check timers config, it trigger invalid interrupts
-	#ifdef SM_USE_TIMER1
+	#if defined(SM_USE_TIMER1)
 		if (timer == sm_timer1) {
-			TCCR1A = 0;
-			TCCR1B = _BV(CS11);
-			TCNT1  = 0;
+			TCCR1A = 0;         // normal counting mode
+			TCCR1B = _BV(CS11); // set prescaler of 8
+			TCNT1  = 0;         // clear the timer count
 			#if defined(__AVR_ATmega8__) || defined(__AVR_ATmega128__)
-				TIFR  |= _BV(OCF1A);
-				TIMSK |= _BV(OCIE1A);
+				TIFR  |= _BV(OCF1A);  // clear any pending interrupts
+				TIMSK |= _BV(OCIE1A); // enable the output compare interrupt
 			#else
-				TIFR1  |= _BV(OCF1A);
-				TIMSK1 |= _BV(OCIE1A);
+				TIFR1  |= _BV(OCF1A);  // clear any pending interrupts
+				TIMSK1 |= _BV(OCIE1A); // enable the output compare interrupt
 			#endif
 		}
 	#endif
 
-	#ifdef SM_USE_TIMER3
+	#if defined(SM_USE_TIMER3)
 		if (timer == sm_timer3) {
-			TCCR3A = 0;
-			TCCR3B = _BV(CS31);
-			TCNT3  = 0;
+			TCCR3A = 0;         // normal counting mode
+			TCCR3B = _BV(CS31); // set prescaler of 8
+			TCNT3  = 0;         // clear the timer count
 			#if defined(__AVR_ATmega128__)
-				TIFR   |= _BV(OCF3A);
-				ETIMSK |= _BV(OCIE3A);
+				TIFR   |= _BV(OCF3A);  // clear any pending interrupts
+				ETIMSK |= _BV(OCIE3A); // enable the output compare interrupt
 			#else
-				TIFR3  = _BV(OCF3A);
-				TIMSK3 = _BV(OCIE3A);
+				TIFR3  = _BV(OCF3A);  // clear any pending interrupts
+				TIMSK3 = _BV(OCIE3A); // enable the output compare interrupt
 			#endif
 		}
 	#endif
 
-	#ifdef SM_USE_TIMER4
+	#if defined(SM_USE_TIMER4)
 		if (timer == sm_timer4) {
-			TCCR4A = 0;
-			TCCR4B = _BV(CS41);
-			TCNT4  = 0;
-			TIFR4  = _BV(OCF4A);
-			TIMSK4 = _BV(OCIE4A);
+			TCCR4A = 0;           // normal counting mode
+			TCCR4B = _BV(CS41);   // set prescaler of 8
+			TCNT4  = 0;           // clear the timer count
+			TIFR4  = _BV(OCF4A);  // clear any pending interrupts
+			TIMSK4 = _BV(OCIE4A); // enable the output compare interrupt
 		}
 	#endif
 
-	#ifdef SM_USE_TIMER5
+	#if defined(SM_USE_TIMER5)
 		if (timer == sm_timer5) {
-			TCCR5A = 0;
-			TCCR5B = _BV(CS51);
-			TCNT5  = 0;
-			TIFR5  = _BV(OCF5A);
-			TIMSK5 = _BV(OCIE5A);
+			TCCR5A = 0;           // normal counting mode
+			TCCR5B = _BV(CS51);   // set prescaler of 8
+			TCNT5  = 0;           // clear the timer count
+			TIFR5  = _BV(OCF5A);  // clear any pending interrupts
+			TIMSK5 = _BV(OCIE5A); // enable the output compare interrupt
 		}
 	#endif
 }
 
 void _servomotor_stop_isr(sm_timer_t timer)
 {
-	#ifdef SM_USE_TIMER1
+	//TODO check difference in arduino servo library
+	#if defined(SM_USE_TIMER1)
 		if (timer == sm_timer1) {
 			#if defined(__AVR_ATmega8__) || defined(__AVR_ATmega128__)
-				TIMSK &= ~_BV(OCIE1A);
+				TIMSK &= ~_BV(OCIE1A); // disable the output compare interrupt
 			#else
-				TIMSK1 &= ~_BV(OCIE1A);
+				TIMSK1 &= ~_BV(OCIE1A); // disable the output compare interrupt
 			#endif
 		}
 	#endif
 
-	#ifdef SM_USE_TIMER3
+	#if defined(SM_USE_TIMER3)
 		if (timer == sm_timer3) {
 			#if defined(__AVR_ATmega128__)
-				ETIMSK &= ~_BV(OCIE3A);
+				ETIMSK &= ~_BV(OCIE3A); // disable the output compare interrupt
 			#else
-				TIMSK3 &= ~_BV(OCIE3A);
+				TIMSK3 &= ~_BV(OCIE3A); // disable the output compare interrupt
 			#endif
 		}
 	#endif
 
-	#ifdef SM_USE_TIMER4
+	#if defined(SM_USE_TIMER4)
 		if (timer == sm_timer4) {
-			TIMSK4 &= ~_BV(OCIE4A);
+			TIMSK4 &= ~_BV(OCIE4A); // disable the output compare interrupt
 		}
 	#endif
 
-	#ifdef SM_USE_TIMER5
+	#if defined(SM_USE_TIMER5)
 		if (timer == sm_timer5) {
-			TIMSK5 &= ~_BV(OCIE5A);
+			TIMSK5 &= ~_BV(OCIE5A); // disable the output compare interrupt
 		}
 	#endif
 }
