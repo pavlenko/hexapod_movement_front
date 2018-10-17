@@ -90,7 +90,7 @@
 #include <avr/io.h>
 #include <avr/power.h>
 #include <stdio.h>
-//#include <util/delay.h>
+#include <util/delay.h>
 
 volatile uint8_t calibration_sm = 0;
 volatile int16_t calibration_val[SM_MAX];
@@ -103,17 +103,25 @@ int main(void)
 	// Check if pin is high
     if (PINB & (1 << PB1)) {
         // Do nothing - disable all logic for allow simple program update
-        return(0);
+		return 0;
     } else {
-        // Execute main program
+		// Execute main program
         initialize_usart0();
         initialize_led();
         initialize_es();
-        initialize_leg();
+        initialize_leg();//TODO error here
         initialize_hp();
         initialize_timer0();
 
         sei();
+		
+		while(1)
+		{
+			LED_ON();
+			_delay_ms(500);
+			LED_OFF();
+			_delay_ms(500);
+		}		
 
         while(1)
         {

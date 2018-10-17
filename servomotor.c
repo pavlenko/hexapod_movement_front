@@ -94,6 +94,7 @@ static inline void _servomotor_isr(sm_timer_t timer, volatile uint16_t *TCNTn, v
 
 void _servomotor_start_isr(sm_timer_t timer)
 {
+	//TODO check timers config, it trigger invalid interrupts
 	#ifdef SM_USE_TIMER1
 		if (timer == sm_timer1) {
 			TCCR1A = 0;
